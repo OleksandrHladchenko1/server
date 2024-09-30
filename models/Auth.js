@@ -2,7 +2,7 @@ const pool = require('../config/database');
 
 class Auth {
   static getUserByEmail(email) {
-    const sql = `SELECT * from users WHERE email = $1`;
+    const sql = 'SELECT * from users WHERE email = $1';
 
     return pool.query(sql, [email]);
   }

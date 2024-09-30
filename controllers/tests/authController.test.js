@@ -40,7 +40,7 @@ describe('Auth controller', () => {
         .send({ email: 'test@example.com', password: '123456', passwordConfirm: '654321' });
 
       expect(response.status).toBe(400);
-      expect(response.body).toEqual({ message: "Passwords don't match!" });
+      expect(response.body).toEqual({ message: 'Passwords don\'t match!' });
     });
 
     it('should return 400 when user already exists', async () => {
@@ -51,7 +51,7 @@ describe('Auth controller', () => {
         .send({ email: 'test@example.com', password: '123456', passwordConfirm: '123456' });
 
       expect(response.status).toBe(400);
-      expect(response.body).toEqual({ message: "User with email 'test@example.com' already exists!" });
+      expect(response.body).toEqual({ message: 'User with email \'test@example.com\' already exists!' });
     });
   });
 
@@ -84,7 +84,7 @@ describe('Auth controller', () => {
         .send({ email: 'test@example.com', password: 'wrongPassword' });
 
       expect(response.status).toBe(400);
-      expect(response.body).toEqual({ message: "Passwords don't match!" });
+      expect(response.body).toEqual({ message: 'Passwords don\'t match!' });
     });
 
     it('should return 400 when user does not exist', async () => {
@@ -95,7 +95,7 @@ describe('Auth controller', () => {
         .send({ email: 'nonexistent@example.com', password: '123456' });
 
       expect(response.status).toBe(400);
-      expect(response.body).toEqual({ message: "User with email 'nonexistent@example.com' doesn't exists!" });
+      expect(response.body).toEqual({ message: 'User with email \'nonexistent@example.com\' doesn\'t exists!' });
     });
   });
 
@@ -111,7 +111,7 @@ describe('Auth controller', () => {
         .send({ email: 'test@example.com', password: 'newPassword', passwordConfirm: 'newPassword' });
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual({ message: "User's password has been successfuly updated!" });
+      expect(response.body).toEqual({ message: 'User\'s password has been successfuly updated!' });
     });
 
     it('should return 400 when new passwords do not match', async () => {

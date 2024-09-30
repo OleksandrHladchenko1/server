@@ -16,7 +16,7 @@ exports.getAllLots = async (req, res, next) => {
 
 exports.createNewLot = async (req, res, next) => {
   try {  
-    let lot = new Lot(req.body);
+    const lot = new Lot(req.body);
 
     const { rows: [newLot] } = await lot.save();
 
@@ -111,7 +111,7 @@ exports.getLotByTitle = async (req, res, next) => {
     console.log(error);
     next(error);
   } 
-}
+};
 
 exports.deleteLot = async (req, res, next) => {
   try {

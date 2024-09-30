@@ -2,11 +2,11 @@ const Category = require('../models/Category');
 
 exports.getAllCategories = async (req, res, next) => {
   try {
-    const { rows: categories } = await Category.getAll(req.query);
+    const { rows: categories, rowCount } = await Category.getAll(req.query);
 
     res.status(200).json({
       categories,
-      totalCount: categories.length,
+      totalCount: rowCount,
     });
   } catch (error) {
     console.log(error);
@@ -16,11 +16,11 @@ exports.getAllCategories = async (req, res, next) => {
 
 exports.getCategoriesWithAmount = async (_, res, next) => {
   try {
-    const { rows: categories } = await Category.getWithAmount();
+    const { rows: categories, rowCount } = await Category.getWithAmount();
 
     res.status(200).json({
       categories,
-      totalCount: categories.length,
+      totalCount: rowCount,
     });
   } catch (error) {
     console.log(error);
@@ -31,7 +31,7 @@ exports.getCategoriesWithAmount = async (_, res, next) => {
 exports.createNewCategory = async (req, res, next) => {
   try {
     const { name } = req.body;
-    let category = new Category(name);
+    const category = new Category(name);
 
     const { rows: [newCategory] } = await category.save();
     

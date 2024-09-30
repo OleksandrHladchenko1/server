@@ -10,7 +10,7 @@ class Category {
   }
 
   async save() {
-    const sql = `INSERT INTO categories (name) VALUES($1) RETURNING *`;
+    const sql = 'INSERT INTO categories (name) VALUES($1) RETURNING *';
 
     return pool.query(sql, [this.name]);
   }

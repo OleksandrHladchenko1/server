@@ -1,6 +1,6 @@
 exports.makeUpdateQuery = values => {
-  let query = [];
-  let params = [];
+  const query = [];
+  const params = [];
 
   Object.keys(values).forEach((key, index) => {
     query.push(`${key} = $${index + 1}`);
