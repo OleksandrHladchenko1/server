@@ -3,11 +3,11 @@ const { getCurrentDateWithTimeZone } = require('../utils/getCurrentDateWithTimeZ
 
 exports.getAllUsers = async (req, res, next) => {
   try {
-    const { rows: users } = await User.getAll(req.query);
+    const { rows: users, rowCount } = await User.getAll(req.query);
 
     res.status(200).json({
       users,
-      totalCount: users.length,
+      totalCount: rowCount,
     });
   } catch (error) {
     console.log(error);
