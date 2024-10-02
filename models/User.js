@@ -2,9 +2,22 @@ const pool = require('../config/database');
 const { makeOrderByQuery } = require('./utils/makeOrderByQuery');
 const { makeUpdateQuery } = require('./utils/makeUpdateQuery');
 
+const validSortColumns = [
+  'id',
+  'first_name',
+  'last_name',
+  'given_name',
+  'user_name',
+  'date_of_birth',
+  'email',
+  'rating',
+  'created_at',
+  'updated_at',
+];
+
 class User {
   static getAll(query) {
-    const orderBy = makeOrderByQuery(query);
+    const orderBy = makeOrderByQuery(query, validSortColumns);
     const sql = `SELECT * FROM users ${orderBy}`;
 
     return pool.query(sql);
