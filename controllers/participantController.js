@@ -33,6 +33,10 @@ exports.getParticipantById = async (req, res, next) => {
     console.log({ participantId });
     const { rows: [participant] } = await Participant.getById(participantId);
 
+    if(!participant) {
+      res.status(404).json({ message: `Participant with id ${participantId} was not found!` });
+    }
+
     res.status(200).json({ participant });
   } catch (error) {
     console.log(error);

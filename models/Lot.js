@@ -17,7 +17,7 @@ class Lot {
   }
 
   async save() {
-    const sql = 'INSERT INTO lots (seller_id, category_id, title, description, starting_bid, increment, percent_for_me)' +
+    const sql = 'INSERT INTO lots (seller_id, category_id, title, description, starting_bid, increment, percent_for_me) ' +
       'VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
 
     return pool.query(sql, [

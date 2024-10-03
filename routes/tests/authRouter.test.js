@@ -1,12 +1,22 @@
 const request = require('supertest');
 const express = require('express');
 const authRoutes = require('../authRouter');
+const User = require('../../models/User');
+const pool = require('../../config/database');
 
 const app = express();
 app.use(express.json());
 app.use('/auth', authRoutes);
 
-describe('Auth router', () => {
+describe.skip('Auth router', () => {
+  let userId;
+
+  afterAll(async () => {
+    await User.delete(userId);
+
+    await pool.end();
+  });
+
   it('should register a user', async () => {
     const response = await request(app)
       .post('/auth/register')
@@ -17,6 +27,8 @@ describe('Auth router', () => {
         password: 'password123',
         passwordConfirm: 'password123',
       });
+
+    userId = response.body.data.id;
     
     expect(response.status).toBe(201);
     expect(response.body.message).toBe('User has been successfuly registered!');

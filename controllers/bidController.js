@@ -32,6 +32,10 @@ exports.getEventBidById = async (req, res, next) => {
     const eventBidId = req.params.id;
     const { rows: [eventBid] } = await EventBid.getEventBidById(eventBidId);
 
+    if(!eventBid) {
+      res.status(404).json({ message: `Event bid with id ${eventBidId} was not found!` });
+    }
+
     res.status(200).json({ eventBid });
   } catch (error) {
     console.log(error);

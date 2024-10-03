@@ -32,6 +32,10 @@ exports.getLotById = async (req, res, next) => {
     const lotId = req.params.id;
     const { rows: [lot] } = await Lot.getById(lotId);
 
+    if(!lot) {
+      res.status(404).json({ message: `Lot with id ${lotId} was not found!` });
+    }
+
     res.status(200).json({ lot });
   } catch (error) {
     console.log(error);

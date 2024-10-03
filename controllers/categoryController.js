@@ -47,6 +47,10 @@ exports.getCategoryById = async (req, res, next) => {
     const categoryId = req.params.id;
     const { rows: [category] } = await Category.getById(categoryId);
 
+    if(!category) {
+      res.status(404).json({ message: `Category with id ${categoryId} was not found!` });
+    }
+
     res.status(200).json({ category });
   } catch (error) {
     console.log(error);

@@ -33,6 +33,10 @@ exports.getEventById = async (req, res, next) => {
     const eventId = req.params.id;
     const { rows: [event] } = await Event.getById(eventId);
 
+    if(!event) {
+      res.status(404).json({ message: `Event with id ${eventId} was not found!` });
+    }
+
     res.status(200).json({ event });
   } catch (error) {
     console.log(error);

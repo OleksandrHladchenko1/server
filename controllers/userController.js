@@ -5,7 +5,7 @@ exports.getAllUsers = async (req, res, next) => {
   try {
     const { rows: users, rowCount } = await User.getAll(req.query);
 
-    res.status(200).json({
+    return res.status(200).json({
       users,
       totalCount: rowCount,
     });
@@ -20,7 +20,11 @@ exports.getUserById = async (req, res, next) => {
     const userId = req.params.id;
     const { rows: [user] } = await User.getById(userId);
 
-    res.status(200).json({ user });
+    if(!user) {
+      return res.status(404).json({ message: `User with id ${userId} was not found!` });
+    }
+
+    return res.status(200).json({ user });
   } catch (error) {
     console.log(error);
     next(error);
@@ -36,7 +40,7 @@ exports.editUserData = async (req, res, next) => {
 
     const { rows: [user] } = await User.editData({ ...bodyValues, updated_at }, userId);
 
-    res.status(201).json({ message: 'User has been successfuly updated!', data: user });
+    return res.status(201).json({ message: 'User has been successfuly updated!', data: user });
   } catch (error) {
     console.log(error);
     next(error);
@@ -49,7 +53,7 @@ exports.deleteUser = async (req, res, next) => {
 
     await User.delete(userId);
 
-    res.status(200).json({ message: 'User has been successfuly deleted!' });
+    return res.status(200).json({ message: 'User has been successfuly deleted!' });
   } catch (error) {
     console.log(error);
     next(error);

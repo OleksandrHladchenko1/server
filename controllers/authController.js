@@ -48,7 +48,7 @@ exports.loginUser = async (req, res, next) => {
         data: {
           user: { ...omit(user, 'password') },
           token,
-        }      
+        },
       });
     }
 
